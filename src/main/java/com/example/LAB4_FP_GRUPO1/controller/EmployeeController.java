@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -98,9 +99,26 @@ public class EmployeeController {
     }
 
     @PostMapping("/search")
-    public String buscar (){
+    public String buscar (@RequestParam("campo") String campo, @RequestParam("filtro") String filtro, Model model){
 
-        //COMPLETAR
+        List<Employees> listaEmpleados;
+
+        if (filtro.equals("nombre")) {
+            listaEmpleados = employeesRepository.buscarEmpleadosPorNombre(campo);
+        } else if (filtro.equals("apellido")) {
+            listaEmpleados = employeesRepository.buscarEmpleadosPorApellido(campo);
+        } else if (filtro.equals("cargo")) {
+            listaEmpleados = employeesRepository.buscarEmpleadosPorCargo(campo);
+        } else if (filtro.equals("departamento")) {
+            listaEmpleados = employeesRepository.buscarEmpleadosPorDepartamento(campo);
+        } else if (filtro.equals("ciudad")) {
+            listaEmpleados = employeesRepository.buscarEmpleadosPorCiudad(campo);
+        } else {
+            listaEmpleados = employeesRepository.findAll();
+        }
+        model.addAttribute("listaEmpleados", listaEmpleados);
+        return "employee/lista";
     }
+
 
 }

@@ -4,6 +4,7 @@ import com.example.LAB4_FP_GRUPO1.entity.Departments;
 import com.example.LAB4_FP_GRUPO1.entity.Employees;
 import com.example.LAB4_FP_GRUPO1.entity.Jobs;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.support.EntityManagerBeanDefinitionRegistrarPostProcessor;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +13,28 @@ import java.util.List;
 @Repository
 public interface EmployeesRepository extends JpaRepository<Employees,Integer> {
 
-    public List<Employees> findByFirstname(String firstName);
-    public List<Employees> findByLastname(String lastName);
-    public List<Employees> findByJob(Jobs jobs);
-    public List<Employees> findByDepartment(Departments departments);
+    @Query(nativeQuery = true, value = "select * from employees where first_name like %1%")
+    List<Employees> buscarEmpleadosPorNombre(String nombre);
+
+    @Query(nativeQuery = true, value = "select * from employees where last_name like %1%")
+    List<Employees> buscarEmpleadosPorApellido(String apellido);
+
+    @Query(nativeQuery = true, value = "select e.* from employees e\n" +
+            "inner join jobs j on (e.job_id = j.job_id)\n" +
+            "where j.job_title like %1%")
+    List<Employees> buscarEmpleadosPorCargo(String cargo);
+
+    @Query(nativeQuery = true, value = "select e.* from employees e\n" +
+            "inner join departments d on (e.department_id = d.department_id)\n" +
+            "where d.department_name like %1%")
+    List<Employees> buscarEmpleadosPorDepartamento(String departamento);
+
+
+    @Query(nativeQuery = true, value = "select e.* from employees e\n" +
+            "inner join departments d on (e.department_id = d.department_id)\n" +
+            "inner join locations l on (d.location_id = l.location_id)\n" +
+            "where l.city like %1%")
+    List<Employees> buscarEmpleadosPorCiudad(String ciudad);
 
 
 }
