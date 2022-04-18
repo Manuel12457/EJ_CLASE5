@@ -10,7 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
+
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -65,7 +65,7 @@ public class EmployeeController {
             } else {
 
                 try {
-                    employees.setHiredate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaContrato));
+                    employees.setHireDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaContrato));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -78,9 +78,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/edit")
-    public String editarEmployee() {
-
-        //COMPLETAR
+    public String editarEmployee(Model model,@RequestParam("id") int id) {
+        Optional<Employees> optEmp = employeesRepository.findById(id);
+        if (optEmp.isPresent()) {
+            Employees employees = optEmp.get();
+            model.addAttribute("employees", employees);
+            model.addAttribute("listaJobs", jobsRepository.findAll());
+            model.addAttribute("listaJefes", employeesRepository.findAll());
+            model.addAttribute("listaDepartments", departmentsRepository.findAll());
+            return "employee/Frm";
+        } else {
+            return "redirect:/employee/lista";
+        }
     }
 
     @GetMapping("/delete")
@@ -119,6 +128,5 @@ public class EmployeeController {
         model.addAttribute("listaEmpleados", listaEmpleados);
         return "employee/lista";
     }
-
 
 }

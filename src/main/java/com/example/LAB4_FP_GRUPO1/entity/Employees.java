@@ -3,6 +3,9 @@ package com.example.LAB4_FP_GRUPO1.entity;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -18,12 +21,15 @@ public class Employees {
     private Integer id;
 
     @Column(name = "first_name", length = 20)
+    @NotBlank
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 25)
+    @NotBlank
     private String lastName;
 
     @Column(name = "email", nullable = false, length = 25)
+    @NotBlank
     private String email;
 
     @Column(name = "password", length = 65)
@@ -40,6 +46,8 @@ public class Employees {
     private Jobs job;
 
     @Column(name = "salary", precision = 8, scale = 2)
+    @Digits(integer=10,fraction = 0)
+    @Min(value=0)
     private BigDecimal salary;
 
     @Column(name = "commission_pct", precision = 2, scale = 2)
