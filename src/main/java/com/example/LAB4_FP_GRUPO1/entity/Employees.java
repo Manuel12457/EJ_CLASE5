@@ -1,8 +1,12 @@
 package com.example.LAB4_FP_GRUPO1.entity;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="employees")
@@ -29,7 +33,7 @@ public class Employees {
     private String phoneNumber;
 
     @Column(name = "hire_date", nullable = false)
-    private String hireDate;
+    private Date hireDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "job_id", nullable = false)
@@ -100,11 +104,11 @@ public class Employees {
         this.job = job;
     }
 
-    public String getHireDate() {
+    public Date getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(String hireDate) {
+    public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
 
