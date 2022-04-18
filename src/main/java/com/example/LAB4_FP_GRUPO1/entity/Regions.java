@@ -1,4 +1,4 @@
-package com.example.laboratorio4.entity;
+package com.example.LAB4_FP_GRUPO1.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

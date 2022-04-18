@@ -1,6 +1,6 @@
-package com.example.laboratorio4.repository;
+package com.example.LAB4_FP_GRUPO1.repository;
 
-import com.example.laboratorio4.entity.Locations;
+import com.example.LAB4_FP_GRUPO1.entity.Locations;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

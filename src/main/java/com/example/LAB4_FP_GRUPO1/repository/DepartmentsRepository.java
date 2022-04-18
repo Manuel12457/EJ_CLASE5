@@ -1,6 +1,6 @@
-package com.example.laboratorio4.repository;
+package com.example.LAB4_FP_GRUPO1.repository;
 
-import com.example.laboratorio4.entity.Departments;
+import com.example.LAB4_FP_GRUPO1.entity.Departments;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

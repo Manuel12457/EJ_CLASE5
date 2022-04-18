@@ -1,4 +1,4 @@
-package com.example.laboratorio4.controller;
+package com.example.LAB4_FP_GRUPO1.controller;
 import com.example.laboratorio4.entity.Employees;
 import com.example.laboratorio4.repository.DepartmentsRepository;
 import com.example.laboratorio4.repository.EmployeesRepository;
