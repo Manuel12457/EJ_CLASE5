@@ -57,7 +57,7 @@ public class EmployeeController {
             return "employee/Frm";
         }else {
 
-            if (employees.getEmployeeid() == 0) {
+            if (employees.getId() == 0) {
                 attr.addFlashAttribute("msg", "Empleado creado exitosamente");
                 employees.setHireDate(new Date());
                 employeesRepository.save(employees);
