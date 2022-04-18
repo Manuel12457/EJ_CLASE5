@@ -1,8 +1,8 @@
 package com.example.LAB4_FP_GRUPO1.controller;
-import com.example.laboratorio4.entity.Employees;
-import com.example.laboratorio4.repository.DepartmentsRepository;
-import com.example.laboratorio4.repository.EmployeesRepository;
-import com.example.laboratorio4.repository.JobsRepository;
+import com.example.LAB4_FP_GRUPO1.entity.Employees;
+import com.example.LAB4_FP_GRUPO1.repository.DepartmentsRepository;
+import com.example.LAB4_FP_GRUPO1.repository.EmployeesRepository;
+import com.example.LAB4_FP_GRUPO1.repository.JobsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
