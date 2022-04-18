@@ -1,4 +1,4 @@
-package com.example.ejclase5;
+package com.example.LAB4_FP_GRUPO1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
