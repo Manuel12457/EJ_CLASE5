@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <title th:text="${product.id == 0? 'Nuevo Producto' : 'Editar Producto'}"></title>
     </head>
+    <h2 th:text="${employee.id == 0? 'Nuevo Producto' : 'Editar Producto'}">Nuevo/Editar Producto</h2>
     <body>
+        <div class="container">
+            <form th:action="@{/employee/save}" th:object="${employee}">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label>Nombres</label>
+                        <input type="text" class="form-control" th:field="*{firstName}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Apellidos</label>
+                        <input type="text" class="form-control" th:field="*{lastName}">
+                    </div>
+                </div>
 
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label>Correo</label>
+                        <input type="text" class="form-control" th:field="*{email}">
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Contraseña</label>
+                        <input type="text" class="form-control" th:field="*{password}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label>Cargo</label>
+                        <select type="text" class="form-control" th:field="*{job}">
+                            <option th:each="job : "></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Sueldo</label>
+                        <input type="text" class="form-control" th:field="*{salary}">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label>Jefe</label>
+                        <select type="text" class="form-control" th:field="*{manager}">
+                            <option th:each=" : "></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Departamento</label>
+                        <select type="text" class="form-control" th:field="*{department}">
+                            <option th:each="job : "></option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" th:href="@{/employee}" class="btn btn-danger">Cancelar</button>
+                <button type="submit" class="btn btn-primary"
+                        th:text="${employee.id == 0? 'Registrar' : 'Actualizar'}"></button>
+            </form>
+        </div>
     </body>
 </html>
