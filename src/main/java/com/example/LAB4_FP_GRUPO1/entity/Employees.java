@@ -33,6 +33,7 @@ public class Employees {
     private String email;
 
     @Column(name = "password", length = 65)
+    @NotBlank
     private String password;
 
     @Column(name = "phone_number", length = 20)
