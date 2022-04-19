@@ -14,6 +14,8 @@ import java.util.List;
 @Repository
 public interface EmployeesRepository extends JpaRepository<Employees,Integer> {
 
+    List<Employees> findByDepartmentOrderBySalaryDesc(Departments dpto);
+
     @Query(nativeQuery = true, value = "select * from employees where first_name like %1%")
     List<Employees> buscarEmpleadosPorNombre(String nombre);
 
