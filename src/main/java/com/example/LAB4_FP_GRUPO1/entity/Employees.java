@@ -46,7 +46,7 @@ public class Employees {
     @JoinColumn(name = "job_id", nullable = false)
     private Jobs job;
 
-    @Column(name = "salary", precision = 8, scale = 2)
+    @Column(name = "salary") //precision = 8, scale = 2
     @Digits(integer=10,fraction = 0)
     @Min(value=0)
     private BigDecimal salary;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
@@ -11,13 +11,37 @@
 <body>
 <div class="container">
     <h1>Empleados con Mayor Salario en la Empresa</h1>
-    <!-- COMPLETAR -->
+    <form method="post" th:action="@{'/Search/busqueda'}" th:object="${salario}">
+        <div class="input-group">
+            <input name="firstName" value="a" hidden>
+            <input name="lastName" value="a" hidden>
+            <input name="email" value="a" hidden>
+            <input name="password" value="a" hidden>
+            <input class="form-control" type="number" placeholder="Salario a buscar" th:field="*{salary}"/>
+            <div class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Error</div>
+            <button type="submit" class="btn btn-outline-success">Buscar</button>
+            <button type="reset" class="btn btn-outline-danger">Eliminar</button>
+            <a class="btn btn-primary" th:href="${'/Search'}" role="button">Regresar</a>
+        </div>
+    </form>
     <table class="table">
         <thead>
-        <!-- COMPLETAR -->
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Cargo</th>
+            <th>Departamento</th>
+            <th>Ciudad</th>
         </thead>
         <tbody>
-        <!-- COMPLETAR -->
+            <tr th:each="empleado, info : ${listaEmpleados}">
+                <td th:text="${info.index + 1}"></td>
+                <td th:text="${empleado.firstName}"></td>
+                <td th:text="${empleado.lastName}"></td>
+                <td th:text="${empleado.job.jobtitle}"></td>
+                <td th:text="${empleado.department.departmentname}"></td>
+                <td th:text="${empleado.department.locationid.city}"></td>
+            </tr>
         </tbody>
     </table>
 </div>

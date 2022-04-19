@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.support.EntityManagerBeanDefinitionRegistrarPostProcessor;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -35,6 +36,14 @@ public interface EmployeesRepository extends JpaRepository<Employees,Integer> {
             "inner join locations l on (d.location_id = l.location_id)\n" +
             "where l.city like %1%")
     List<Employees> buscarEmpleadosPorCiudad(String ciudad);
+
+    @Query(nativeQuery = true, value = "select * from employees order by salary DESC")
+    List<Employees> listaEmpleadosPorSalario();
+
+    @Query(nativeQuery = true, value = "select * from employees where salary = ?1;")
+    List<Employees> buscarEmpleadosPorSalario(BigDecimal salario);
+
+    List<Employees> findBySalary(BigDecimal salario);
 
 
 }
