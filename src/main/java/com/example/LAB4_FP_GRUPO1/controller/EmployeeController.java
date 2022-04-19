@@ -40,7 +40,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/new")
-    public String nuevoEmployeeForm() {
+    public String nuevoEmployeeForm(@ModelAttribute("employees") Employees employees) {
         //COMPLETAR
         return "employee/Frm";
     }
@@ -78,7 +78,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/edit")
-    public String editarEmployee(Model model,@RequestParam("id") int id) {
+    public String editarEmployee(@ModelAttribute("employees") Employees employee,
+                                 Model model,@RequestParam("id") int id) {
         Optional<Employees> optEmp = employeesRepository.findById(id);
         if (optEmp.isPresent()) {
             Employees employees = optEmp.get();

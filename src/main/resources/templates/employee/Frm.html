@@ -32,7 +32,7 @@
 
                 <div class="row">
                     <div class="form-group col-6">
-                        <label>Correo Electronico</label>
+                        <label>Correo Electrónico</label>
                         <input type="text" class="form-control" th:field="*{email}"
                                th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}"

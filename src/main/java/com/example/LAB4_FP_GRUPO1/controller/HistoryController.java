@@ -11,6 +11,7 @@ public class HistoryController {
     @GetMapping(value = {"","/"})
     public String historialEmpleado(){
         //COMPLETAR
+        return "xd";
     }
 
 
