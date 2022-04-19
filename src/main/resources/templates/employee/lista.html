@@ -12,7 +12,9 @@
     <div class="container">
         <h1>Lista de Empleados</h1>
         <a class="btn btn-primary mt-4 mb-4" th:href="@{/employee/new}">Nuevo Empleado</a>  <!-- COMPLETAR -->
-        <!-- COMPLETAR -->
+        <div class="alert alert-success" th:text="${msg}" th:if="${msg != null}"></div>
+        <div class="alert alert-warning" th:text="${msg1}" th:if="${msg1 != null}"></div>
+        <div class="alert alert-danger" th:text="${msg2}" th:if="${msg2 != null}"></div>
         <form method="post" th:action="@{/employee/search}">
             <div class="input-group">
                 <input name="campo" class="form-control" type="text" placeholder="Buscar"/>

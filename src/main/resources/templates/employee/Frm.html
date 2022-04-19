@@ -8,10 +8,10 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <title th:text="${employees.id == 0? 'Nuevo Empleado' : 'Editar Empleado'}"></title>
     </head>
-    <h2 th:text="|${employees.id == 0? 'Nuevo' : 'Editar'} empleado|">Nuevo/Editar Producto</h2>
+    <h2 th:text="${employees.id == null? 'Nuevo Empleado' : 'Editar Empleado'}">Nuevo Empleado</h2>
     <body>
         <div class="container">
-            <form th:action="@{/employee/save}" th:object="${employees}">
+            <form method="post" th:action="@{'/employee/save'}" th:object="${employees}">
                 <input th:field="*{id}" type="hidden"/>
                 <div class="row">
                     <div class="form-group col-6">
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label>Cargo</label>
-                        <select name="job" class="form-select" >
+                        <select name="job" class="form-control" >
                             <option th:each="job : ${listaJobs}"
                             th:value="${job.jobid}"
                             th:text="${job.jobtitle}"
@@ -73,8 +73,8 @@
                         <select name="manager" class="form-control" >
                             <option th:each=" jefe:${listaJefes}"
                                     th:value="${jefe.id}"
-                                    th:text="${jefe.firstName + jefe.lastName}"
-                                    th:selected="${jefe.id==employees.manager.id}"></option>
+                                    th:text="|${jefe.firstName} ${jefe.lastName}|"
+                                    th:selected="${ employees.manager!=null and (jefe.id==employees.getManager().getId())}"></option>
                         </select>
                     </div>
                     <div class="form-group col-6">
@@ -88,9 +88,9 @@
                     </div>
                 </div>
 
-                <button type="button" th:href="@{/employee}" class="btn btn-danger">Cancelar</button>
+                <a th:href="@{'/employee'}" class="btn btn-danger">Cancelar</a>
                 <button type="submit" class="btn btn-primary"
-                        th:text="${employees.id == 0? 'Registrar' : 'Actualizar'}"></button>
+                        th:text="${employees.id == null? 'Registrar' : 'Actualizar'}"></button>
             </form>
         </div>
     </body>

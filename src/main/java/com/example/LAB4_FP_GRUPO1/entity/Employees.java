@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -34,6 +35,8 @@ public class Employees {
 
     @Column(name = "password", length = 65)
     @NotBlank
+    @Size(min = 8, message = "La contraseña debe tener como mínimo 8 caracteres.")
+    @Size(max = 65,message = "La contraseña puede tener como máximo 65 caracteres.")
     private String password;
 
     @Column(name = "phone_number", length = 20)
@@ -44,11 +47,11 @@ public class Employees {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "job_id", nullable = false)
-    private Jobs job;
+    private Jobs job=new Jobs();
 
     @Column(name = "salary") //precision = 8, scale = 2
-    @Digits(integer=10,fraction = 0)
-    @Min(value=0)
+    @Digits(integer=10,fraction = 2)
+    @Min(value=1,message = "Debe ser mayor que cero")
     private BigDecimal salary;
 
     @Column(name = "commission_pct", precision = 2, scale = 2)
@@ -60,7 +63,7 @@ public class Employees {
 
     @ManyToOne
     @JoinColumn(name = "department_id")
-    private Departments department;
+    private Departments department = new Departments();
 
     @Column(name = "enabled")
     private int enabled;

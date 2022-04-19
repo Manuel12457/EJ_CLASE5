@@ -40,38 +40,33 @@ public class EmployeeController {
     }
 
     @GetMapping("/new")
-    public String nuevoEmployeeForm(@ModelAttribute("employees") Employees employees) {
-        //COMPLETAR
+    public String nuevoEmployeeForm(@ModelAttribute("employees") Employees employees,Model model) {
+        model.addAttribute("listaJobs", jobsRepository.findAll());
+        model.addAttribute("listaJefes", employeesRepository.findAll());
+        model.addAttribute("listaDepartments", departmentsRepository.findAll());
         return "employee/Frm";
     }
 
     @PostMapping("/save")
     public String guardarEmployee(@ModelAttribute("employees") @Valid Employees employees, BindingResult bindingResult,
-                                  RedirectAttributes attr,
-                                  @RequestParam(name="fechaContrato", required=false) String fechaContrato, Model model) {
+                                  RedirectAttributes attr, Model model) {
 
         if(bindingResult.hasErrors()){
             model.addAttribute("listaJobs", jobsRepository.findAll());
-            model.addAttribute("listaJefes", employeesRepository.findAll());
+            model.addAttribute("listaJefes", getListaJefes());
             model.addAttribute("listaDepartments", departmentsRepository.findAll());
             return "employee/Frm";
         }else {
-
-            if (employees.getId() == 0) {
+            if (employees.getId() == null) {
                 attr.addFlashAttribute("msg", "Empleado creado exitosamente");
                 employees.setHireDate(new Date());
                 employeesRepository.save(employees);
                 return "redirect:/employee";
-            } else {
-
-                try {
-                    employees.setHireDate(new SimpleDateFormat("yyyy-MM-dd").parse(fechaContrato));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
+            }else {
+                Employees employeeDB = employeesRepository.getById(employees.getId());
+                employees.setHireDate(employeeDB.getHireDate());
                 employeesRepository.save(employees);
-                attr.addFlashAttribute("msg", "Empleado actualizado exitosamente");
+                attr.addFlashAttribute("msg1", "Empleado actualizado exitosamente");
                 return "redirect:/employee";
             }
         }
@@ -85,12 +80,21 @@ public class EmployeeController {
             Employees employees = optEmp.get();
             model.addAttribute("employees", employees);
             model.addAttribute("listaJobs", jobsRepository.findAll());
-            model.addAttribute("listaJefes", employeesRepository.findAll());
+            model.addAttribute("listaJefes", getListaJefes());
             model.addAttribute("listaDepartments", departmentsRepository.findAll());
             return "employee/Frm";
         } else {
             return "redirect:/employee/lista";
         }
+    }
+
+    public List<Employees> getListaJefes() {
+        List<Employees> listaJefes = employeesRepository.findAll();
+        Employees e = new Employees();
+        e.setId(0);
+        e.setFirstName("--No tiene Jefe--");
+        listaJefes.add(0, e);
+        return listaJefes;
     }
 
     @GetMapping("/delete")
@@ -102,7 +106,7 @@ public class EmployeeController {
 
         if (optEmployees.isPresent()) {
             employeesRepository.deleteById(id);
-            attr.addFlashAttribute("msg","Empleado borrado exitosamente");
+            attr.addFlashAttribute("msg2","Empleado borrado exitosamente");
         }
         return "redirect:/employee";
 
